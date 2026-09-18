@@ -29,7 +29,13 @@ npm run lint
 | `src/app/guides/page.tsx` | Setup guide. |
 | `src/app/legal/[section]/page.tsx` | Legal pages, statically generated from `legal.ts`. |
 | `src/app/success/page.tsx` | Post-checkout page Whop returns to. |
-| `src/app/opengraph-image.tsx`, `icon.svg`, `sitemap.ts`, `robots.ts` | Share card, favicon, sitemap and robots, all generated. |
+| `src/app/about/page.tsx` | About page. The trust page search engines and AI assistants look for. |
+| `src/app/opengraph-image.tsx`, `icon.svg`, `sitemap.ts`, `robots.ts`, `manifest.ts` | Share card, favicon, sitemap, robots and web manifest, all generated. |
+| `src/app/llms.txt/`, `src/app/llms-full.txt/` | Plain-text site summary and full content for AI assistants, generated from the data files. |
+| `src/app/feed.xml/` | RSS feed of the blog. |
+| `src/lib/seo.tsx` | JSON-LD builders (Organization, WebSite, Product, FAQPage, Article, BreadcrumbList) and the `<JsonLd>` component. |
+| `src/lib/llms.ts` | Builds the two llms.txt files from the product, FAQ, steps and posts. |
+| `next.config.ts` | Security headers and long cache lifetimes for the video folders. |
 | `src/components/sections/*` | One file per page section: Hero, Marquee, FeatureShowcase, Included, HowItWorks, Pricing, Reviews, Faq, FinalCta. |
 | `src/components/layout/*` | PromoBar, Header, Footer, StickyCta, Pixels. |
 | `src/components/checkout/*` | `CheckoutProvider` (mounted once in the layout), `CheckoutModal` (Whop embed) and `BuyButton`. |

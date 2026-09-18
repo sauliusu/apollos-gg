@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Download, MonitorSmartphone, Settings2, Usb } from 'lucide-react'
 import { site } from '@/config/site'
 import { SWISH } from '@/data/product'
+import { breadcrumbLd, graph, JsonLd } from '@/lib/seo'
 import { Container, Section, SectionHeading } from '@/components/ui/Container'
 import { Button } from '@/components/ui/Button'
 import { BuyButton } from '@/components/checkout/BuyButton'
@@ -59,7 +60,9 @@ export default function GuidesPage() {
     <>
       <Section>
         <Container>
+          <JsonLd data={graph(breadcrumbLd([{ name: 'Setup guide', path: '/guides' }]))} />
           <SectionHeading
+            as="h1"
             eyebrow="Setup guide"
             title={
               <>

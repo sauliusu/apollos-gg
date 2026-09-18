@@ -64,6 +64,7 @@ export const site = {
       { label: 'Setup guide', href: '/guides' },
       { label: 'Blog', href: '/blog' },
       { label: 'FAQ', href: '/#faq' },
+      { label: 'About', href: '/about' },
     ],
     legal: [
       { label: 'Terms of Service', href: '/legal/terms' },

@@ -1,5 +1,6 @@
-import { site } from '@/config/site'
+import type { Metadata } from 'next'
 import { SWISH } from '@/data/product'
+import { faqLd, graph, JsonLd, productLd } from '@/lib/seo'
 import { Hero } from '@/components/sections/Hero'
 import { Marquee } from '@/components/sections/Marquee'
 import { FeatureShowcase } from '@/components/sections/FeatureShowcase'
@@ -10,30 +11,17 @@ import { Faq } from '@/components/sections/Faq'
 import { FinalCta } from '@/components/sections/FinalCta'
 import { StickyCta } from '@/components/layout/StickyCta'
 
+export const metadata: Metadata = {
+  alternates: { canonical: '/' },
+}
+
 /**
  * Home. Sections are plain components: reorder, remove or add one here.
  */
 export default function HomePage() {
-  const jsonLd = {
-    '@context': 'https://schema.org',
-    '@graph': [
-      {
-        '@type': 'Organization',
-        name: site.name,
-        url: site.url,
-        sameAs: [site.discordInvite, ...Object.values(site.socials).filter(Boolean)],
-      },
-      {
-        '@type': 'WebSite',
-        name: site.name,
-        url: site.url,
-      },
-    ],
-  }
-
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <JsonLd data={graph(productLd(SWISH), faqLd())} />
       <Hero product={SWISH} />
       <Marquee />
       <FeatureShowcase product={SWISH} />
