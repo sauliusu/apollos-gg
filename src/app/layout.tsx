@@ -61,6 +61,8 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
   return (
     <html lang="en" className={`${body.variable} ${display.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col font-sans">
+        {/* React hoists this into <head>. Page-level `alternates` would otherwise drop it. */}
+        <link rel="alternate" type="application/rss+xml" title={`${site.name} Blog`} href="/feed.xml" />
         <JsonLd data={graph(organizationLd(), websiteLd())} />
         <CheckoutProvider>
           <PromoBar />
