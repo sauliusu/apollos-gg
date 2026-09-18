@@ -1,26 +1,89 @@
 @import "tailwindcss";
 
+/* ---------- Brand tokens: change these to re-skin the whole site ---------- */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --ink: #06090d;          /* page background */
+  --ink-2: #0b1017;        /* raised surfaces */
+  --ink-3: #111925;        /* cards */
+  --line: #1b2533;         /* borders */
+  --line-2: #26344a;
+  --text: #f2f6fa;
+  --text-2: #a7b3c2;
+  --text-3: #66758a;
+  --green: #3dfc8a;        /* the accent: 2K's green release */
+  --green-2: #1dd46a;
+  --green-ink: #06210f;
+  --amber: #ffb547;        /* secondary accent for prices / badges */
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-line: var(--line);
+  --color-line-2: var(--line-2);
+  --color-fg: var(--text);
+  --color-fg-2: var(--text-2);
+  --color-fg-3: var(--text-3);
+  --color-green: var(--green);
+  --color-green-2: var(--green-2);
+  --color-green-ink: var(--green-ink);
+  --color-amber: var(--amber);
+
+  --font-sans: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-display), var(--font-body), ui-sans-serif, sans-serif;
+
+  --shadow-glow: 0 0 0 1px color-mix(in oklab, var(--green) 35%, transparent), 0 10px 40px -10px color-mix(in oklab, var(--green) 45%, transparent);
+  --shadow-card: 0 1px 0 0 rgb(255 255 255 / 0.04) inset, 0 12px 32px -16px rgb(0 0 0 / 0.7);
+
+  --animate-marquee: marquee 28s linear infinite;
+  --animate-fade-up: fade-up 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-pulse-ring: pulse-ring 2.2s ease-out infinite;
+
+  @keyframes marquee { from { transform: translateX(0) } to { transform: translateX(-50%) } }
+  @keyframes fade-up { from { opacity: 0; transform: translateY(14px) } to { opacity: 1; transform: none } }
+  @keyframes pulse-ring { 0% { transform: scale(1); opacity: .6 } 100% { transform: scale(1.8); opacity: 0 } }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html { scroll-behavior: smooth; scroll-padding-top: 96px; }
+body { background: var(--ink); color: var(--text); }
+
+img, video { -webkit-user-drag: none; user-drag: none; }
+
+::selection { background: var(--green); color: var(--green-ink); }
+
+/* Court-line grid behind the hero */
+.court-grid {
+  background-image:
+    linear-gradient(to right, rgb(255 255 255 / 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(255 255 255 / 0.035) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 20%, black 30%, transparent 75%);
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
-}
+.text-glow { text-shadow: 0 0 24px color-mix(in oklab, var(--green) 55%, transparent); }
+
+.scrollbar-none { scrollbar-width: none; }
+.scrollbar-none::-webkit-scrollbar { display: none; }
+
+/* Blog article body (rendered from Markdown) */
+.prose-blog { color: var(--text-2); font-size: 1.0625rem; line-height: 1.75; }
+.prose-blog > * + * { margin-top: 1.25em; }
+.prose-blog h2 { margin-top: 2.2em; font-family: var(--font-display); font-size: 1.6rem; font-weight: 700; letter-spacing: -0.01em; color: var(--text); }
+.prose-blog h3 { margin-top: 1.8em; font-family: var(--font-display); font-size: 1.25rem; font-weight: 700; color: var(--text); }
+.prose-blog strong { color: var(--text); font-weight: 600; }
+.prose-blog a { color: var(--green); text-decoration: underline; text-underline-offset: 3px; }
+.prose-blog ul, .prose-blog ol { padding-left: 1.4em; }
+.prose-blog ul { list-style: disc; }
+.prose-blog ol { list-style: decimal; }
+.prose-blog li + li { margin-top: 0.4em; }
+.prose-blog li::marker { color: var(--green); }
+.prose-blog blockquote { border-left: 3px solid var(--green); padding-left: 1em; color: var(--text-3); font-style: italic; }
+.prose-blog code { font-size: 0.9em; background: var(--ink-3); border: 1px solid var(--line); border-radius: 6px; padding: 0.1em 0.4em; color: var(--text); }
+.prose-blog pre { overflow-x: auto; background: var(--ink-3); border: 1px solid var(--line); border-radius: 16px; padding: 1rem 1.25rem; }
+.prose-blog pre code { background: none; border: 0; padding: 0; }
+.prose-blog img, .prose-blog video { border-radius: 16px; border: 1px solid var(--line); }
+.prose-blog hr { border-color: var(--line); }
+.prose-blog table { width: 100%; border-collapse: collapse; font-size: 0.95em; }
+.prose-blog th, .prose-blog td { border: 1px solid var(--line); padding: 0.6em 0.9em; text-align: left; }
+.prose-blog th { background: var(--ink-3); color: var(--text); font-weight: 600; }
