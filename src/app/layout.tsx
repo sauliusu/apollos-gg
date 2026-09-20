@@ -43,11 +43,15 @@ export const metadata: Metadata = {
     locale: 'en_US',
   },
   twitter: { card: 'summary_large_image', title: site.ogTitle, description: site.description },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: { index: true, follow: true, 'max-image-preview': 'large', 'max-snippet': -1, 'max-video-preview': -1 },
-  },
+  // NEXT_PUBLIC_NOINDEX=1 keeps the store out of search results while it is unfinished. Remove the variable to go live.
+  robots:
+    process.env.NEXT_PUBLIC_NOINDEX === '1'
+      ? { index: false, follow: false, googleBot: { index: false, follow: false } }
+      : {
+          index: true,
+          follow: true,
+          googleBot: { index: true, follow: true, 'max-image-preview': 'large', 'max-snippet': -1, 'max-video-preview': -1 },
+        },
   verification: site.googleSiteVerification ? { google: site.googleSiteVerification } : undefined,
   formatDetection: { telephone: false },
 }
